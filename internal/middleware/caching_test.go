@@ -21,8 +21,8 @@ import (
 	"github.com/alicebob/miniredis/v2"
 	"github.com/go-redis/redis/v8"
 	"github.com/google/go-cmp/cmp"
+	"github.com/yusing/pkgsite/internal/config"
 	"go.opencensus.io/stats/view"
-	"golang.org/x/pkgsite/internal/config"
 )
 
 func TestCache(t *testing.T) {

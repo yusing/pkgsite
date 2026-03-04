@@ -8,7 +8,7 @@ import (
 	"context"
 	"testing"
 
-	"golang.org/x/pkgsite/internal/testing/sample"
+	"github.com/yusing/pkgsite/internal/testing/sample"
 )
 
 func TestShouldUpdateSymbolHistory(t *testing.T) {

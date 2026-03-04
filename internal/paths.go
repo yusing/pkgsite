@@ -7,8 +7,8 @@ package internal
 import (
 	"path"
 
+	"github.com/yusing/pkgsite/internal/stdlib"
 	"golang.org/x/mod/module"
-	"golang.org/x/pkgsite/internal/stdlib"
 )
 
 // VCSHostWithThreeElementRepoName returns true when the hostname

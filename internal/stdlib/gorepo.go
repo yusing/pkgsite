@@ -15,8 +15,8 @@ import (
 	"runtime"
 	"strings"
 
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/version"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/version"
 )
 
 // A goRepo represents a git repo holding the Go standard library.

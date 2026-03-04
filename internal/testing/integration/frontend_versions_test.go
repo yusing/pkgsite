@@ -12,8 +12,8 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/pkgsite/internal/frontend/versions"
-	"golang.org/x/pkgsite/internal/postgres"
+	"github.com/yusing/pkgsite/internal/frontend/versions"
+	"github.com/yusing/pkgsite/internal/postgres"
 )
 
 func TestFrontendVersionsPage(t *testing.T) {

@@ -10,13 +10,13 @@ import (
 	"net/http"
 	"strings"
 
-	"golang.org/x/pkgsite/internal/frontend/page"
-	"golang.org/x/pkgsite/internal/frontend/serrors"
-	"golang.org/x/pkgsite/internal/frontend/urlinfo"
-	mstats "golang.org/x/pkgsite/internal/middleware/stats"
+	"github.com/yusing/pkgsite/internal/frontend/page"
+	"github.com/yusing/pkgsite/internal/frontend/serrors"
+	"github.com/yusing/pkgsite/internal/frontend/urlinfo"
+	mstats "github.com/yusing/pkgsite/internal/middleware/stats"
 
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/stdlib"
 )
 
 // serveDetails handles requests for package/directory/module details pages. It

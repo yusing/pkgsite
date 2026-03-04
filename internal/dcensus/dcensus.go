@@ -14,16 +14,16 @@ import (
 
 	"contrib.go.opencensus.io/exporter/prometheus"
 	"contrib.go.opencensus.io/exporter/stackdriver"
+	"github.com/yusing/pkgsite/internal/config"
+	"github.com/yusing/pkgsite/internal/config/serverconfig"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
 	"go.opencensus.io/plugin/ochttp"
 	"go.opencensus.io/stats"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/tag"
 	"go.opencensus.io/trace"
 	"go.opencensus.io/zpages"
-	"golang.org/x/pkgsite/internal/config"
-	"golang.org/x/pkgsite/internal/config/serverconfig"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
 )
 
 // KeyStatus is a tag key named "status".

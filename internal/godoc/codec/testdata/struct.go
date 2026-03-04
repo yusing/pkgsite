@@ -10,7 +10,8 @@ package somepkg
 
 import (
 	"go/token"
-	"golang.org/x/pkgsite/internal/godoc/codec"
+
+	"github.com/yusing/pkgsite/internal/godoc/codec"
 )
 
 // Fields of codec_BasicLit: ValuePos Kind Value

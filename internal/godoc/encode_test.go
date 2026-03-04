@@ -20,7 +20,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal"
 )
 
 var packageToTest string = filepath.Join(internal.GOROOT(), "src", "net", "http")

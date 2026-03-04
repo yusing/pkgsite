@@ -22,7 +22,7 @@ import (
 	"strings"
 	"sync"
 
-	"golang.org/x/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal"
 )
 
 // GenerateFeatureContexts computes the exported API for the package specified

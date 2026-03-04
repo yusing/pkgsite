@@ -32,12 +32,12 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/internal/trace"
+	"github.com/yusing/pkgsite/internal/version"
 	"golang.org/x/net/context/ctxhttp"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/stdlib"
-	"golang.org/x/pkgsite/internal/trace"
-	"golang.org/x/pkgsite/internal/version"
 )
 
 // Info holds source information about a module, used to generate URLs referring

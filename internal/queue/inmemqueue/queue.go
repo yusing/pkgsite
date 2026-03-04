@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"time"
 
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/experiment"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/queue"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/experiment"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/queue"
 )
 
 // InMemory is a Queue implementation that schedules in-process fetch

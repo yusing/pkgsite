@@ -11,7 +11,8 @@ package godoc
 import (
 	"go/ast"
 	"go/token"
-	"golang.org/x/pkgsite/internal/godoc/codec"
+
+	"github.com/yusing/pkgsite/internal/godoc/codec"
 )
 
 // Fields of ast_ArrayType: Lbrack Len Elt

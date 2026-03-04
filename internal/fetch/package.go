@@ -15,15 +15,15 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/godoc"
+	"github.com/yusing/pkgsite/internal/licenses"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/source"
+	"github.com/yusing/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/internal/trace"
 	"golang.org/x/mod/module"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/godoc"
-	"golang.org/x/pkgsite/internal/licenses"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/source"
-	"golang.org/x/pkgsite/internal/stdlib"
-	"golang.org/x/pkgsite/internal/trace"
 	"golang.org/x/sync/errgroup"
 )
 

@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/version"
 	"golang.org/x/mod/module"
 	"golang.org/x/net/context/ctxhttp"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/version"
 )
 
 // A Client is used by the fetch service to communicate with a module

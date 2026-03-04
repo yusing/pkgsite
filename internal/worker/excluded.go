@@ -15,9 +15,9 @@ import (
 	"strings"
 
 	"cloud.google.com/go/storage"
-	"golang.org/x/pkgsite/internal/config"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/postgres"
+	"github.com/yusing/pkgsite/internal/config"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/postgres"
 )
 
 type exclusion struct {

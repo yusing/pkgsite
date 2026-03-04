@@ -25,9 +25,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/version"
 	"golang.org/x/mod/semver"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/version"
 )
 
 // ModulePath is the name of the module for the standard library.

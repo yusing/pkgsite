@@ -8,8 +8,8 @@ import (
 	"context"
 	"testing"
 
-	"golang.org/x/pkgsite/internal/config"
-	"golang.org/x/pkgsite/internal/postgres"
+	"github.com/yusing/pkgsite/internal/config"
+	"github.com/yusing/pkgsite/internal/postgres"
 )
 
 func TestExcluded(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"math/rand"
 	"net/http"
 
-	"golang.org/x/pkgsite/internal/frontend/page"
+	"github.com/yusing/pkgsite/internal/frontend/page"
 )
 
 // searchTip represents a snippet of text on the homepage demonstrating

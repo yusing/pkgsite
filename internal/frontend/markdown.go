@@ -12,10 +12,10 @@ import (
 	"strings"
 
 	"github.com/google/safehtml/template"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/source"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/source"
 	"rsc.io/markdown"
 )
 

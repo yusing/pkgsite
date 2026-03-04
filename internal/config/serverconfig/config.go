@@ -20,11 +20,11 @@ import (
 	"time"
 
 	"cloud.google.com/go/storage"
+	"github.com/yusing/pkgsite/internal/config"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/secrets"
 	"golang.org/x/net/context/ctxhttp"
-	"golang.org/x/pkgsite/internal/config"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/secrets"
 	"gopkg.in/yaml.v3"
 )
 

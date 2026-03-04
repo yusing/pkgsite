@@ -13,15 +13,15 @@ import (
 	"testing"
 	"time"
 
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/licenses"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/proxy"
-	"golang.org/x/pkgsite/internal/proxy/proxytest"
-	"golang.org/x/pkgsite/internal/source"
-	"golang.org/x/pkgsite/internal/stdlib"
-	"golang.org/x/pkgsite/internal/testing/sample"
-	"golang.org/x/pkgsite/internal/testing/testhelper"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/licenses"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/proxy"
+	"github.com/yusing/pkgsite/internal/proxy/proxytest"
+	"github.com/yusing/pkgsite/internal/source"
+	"github.com/yusing/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/internal/testing/sample"
+	"github.com/yusing/pkgsite/internal/testing/testhelper"
 )
 
 var testProxyCommitTime = time.Date(2019, 1, 30, 0, 0, 0, 0, time.UTC)

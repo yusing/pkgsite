@@ -8,9 +8,9 @@ import (
 	"path"
 	"time"
 
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/stdlib"
 	"golang.org/x/mod/module"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/stdlib"
 )
 
 const (

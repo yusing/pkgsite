@@ -13,19 +13,19 @@ import (
 	"time"
 
 	"github.com/lib/pq"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/database"
+	"github.com/yusing/pkgsite/internal/dcensus"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/postgres/search"
+	"github.com/yusing/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/internal/version"
 	"go.opencensus.io/plugin/ochttp"
 	"go.opencensus.io/stats"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/tag"
 	"go.opencensus.io/trace"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/database"
-	"golang.org/x/pkgsite/internal/dcensus"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/postgres/search"
-	"golang.org/x/pkgsite/internal/stdlib"
-	"golang.org/x/pkgsite/internal/version"
 )
 
 var (

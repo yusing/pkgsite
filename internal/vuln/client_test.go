@@ -17,7 +17,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/pkgsite/internal/osv"
+	"github.com/yusing/pkgsite/internal/osv"
 	"golang.org/x/tools/txtar"
 )
 

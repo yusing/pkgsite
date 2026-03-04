@@ -15,10 +15,10 @@ import (
 	"net/url"
 	"os"
 
-	"golang.org/x/pkgsite/internal/auth"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/frontend"
-	"golang.org/x/pkgsite/internal/frontend/versions"
+	"github.com/yusing/pkgsite/internal/auth"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/frontend"
+	"github.com/yusing/pkgsite/internal/frontend/versions"
 )
 
 // A Client for interacting with the frontend. This is only used for tests.

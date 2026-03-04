@@ -15,12 +15,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/postgres"
+	"github.com/yusing/pkgsite/internal/testing/htmlcheck"
+	"github.com/yusing/pkgsite/internal/testing/pagecheck"
+	"github.com/yusing/pkgsite/internal/testing/sample"
 	"golang.org/x/net/html"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/postgres"
-	"golang.org/x/pkgsite/internal/testing/htmlcheck"
-	"golang.org/x/pkgsite/internal/testing/pagecheck"
-	"golang.org/x/pkgsite/internal/testing/sample"
 )
 
 const pseudoVersion = "v0.0.0-20140414041502-123456789012"

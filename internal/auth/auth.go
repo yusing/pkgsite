@@ -11,7 +11,7 @@ import (
 	"maps"
 	"net/http"
 
-	"golang.org/x/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/derrors"
 	"google.golang.org/api/idtoken"
 )
 

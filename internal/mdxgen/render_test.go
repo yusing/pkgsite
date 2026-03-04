@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/pkgsite/internal/godoc"
+	"github.com/yusing/pkgsite/internal/godoc"
 )
 
 func TestRenderIndexMDX_ReadmeBeforeAPI(t *testing.T) {
@@ -54,4 +54,3 @@ func F() {}
 	pkg.AddFile(f, true)
 	return pkg.Encode(context.Background())
 }
-

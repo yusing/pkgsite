@@ -11,10 +11,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/config/serverconfig"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/config/serverconfig"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
 )
 
 // UpdateModuleVersionStatesForReprocessing marks modules to be reprocessed

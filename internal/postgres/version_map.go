@@ -11,9 +11,9 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/lib/pq"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/version"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/version"
 )
 
 // UpsertVersionMap inserts a version_map entry into the database.

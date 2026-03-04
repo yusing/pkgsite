@@ -11,10 +11,10 @@ import (
 	"database/sql"
 	"time"
 
-	"golang.org/x/pkgsite/internal/database"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/poller"
+	"github.com/yusing/pkgsite/internal/database"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/poller"
 )
 
 type DB struct {

@@ -1,4 +1,4 @@
-module golang.org/x/pkgsite
+module github.com/yusing/pkgsite
 
 go 1.26.0
 

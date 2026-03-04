@@ -7,7 +7,7 @@ import (
 	"log"
 	"path/filepath"
 
-	"golang.org/x/pkgsite/internal/mdxgen"
+	"github.com/yusing/pkgsite/internal/mdxgen"
 )
 
 func main() {
@@ -31,4 +31,3 @@ func run(ctx context.Context, src, out string) error {
 	fmt.Printf("generated=%d skipped=%d failed=%d output=%s\n", s.Generated, s.Skipped, s.Failed, out)
 	return err
 }
-

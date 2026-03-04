@@ -13,7 +13,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/pkgsite/internal/testing/testhelper"
+	"github.com/yusing/pkgsite/internal/testing/testhelper"
 )
 
 var update = flag.Bool("update", false, "update goldens instead of checking against them")

@@ -24,10 +24,10 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/fetch"
+	"github.com/yusing/pkgsite/internal/proxy"
 	"golang.org/x/mod/semver"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/fetch"
-	"golang.org/x/pkgsite/internal/proxy"
 )
 
 var (
@@ -199,7 +199,7 @@ var tmpl = template.Must(template.New("").Parse(`
 
 package fetch
 
-import "golang.org/x/pkgsite/internal"
+import "github.com/yusing/pkgsite/internal"
 
 var ZipSignatures = map[string][]internal.Modver{
 {{range .}}

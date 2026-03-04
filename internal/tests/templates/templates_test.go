@@ -9,12 +9,12 @@ import (
 
 	"github.com/google/safehtml/template"
 	"github.com/jba/templatecheck"
-	"golang.org/x/pkgsite/internal/frontend"
-	"golang.org/x/pkgsite/internal/frontend/page"
-	"golang.org/x/pkgsite/internal/frontend/templates"
-	"golang.org/x/pkgsite/internal/frontend/versions"
-	"golang.org/x/pkgsite/internal/godoc/dochtml"
-	"golang.org/x/pkgsite/static"
+	"github.com/yusing/pkgsite/internal/frontend"
+	"github.com/yusing/pkgsite/internal/frontend/page"
+	"github.com/yusing/pkgsite/internal/frontend/templates"
+	"github.com/yusing/pkgsite/internal/frontend/versions"
+	"github.com/yusing/pkgsite/internal/godoc/dochtml"
+	"github.com/yusing/pkgsite/static"
 )
 
 func TestCheckFrontendTemplates(t *testing.T) {

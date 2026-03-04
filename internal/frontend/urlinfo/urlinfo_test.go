@@ -8,10 +8,10 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/stdlib"
-	"golang.org/x/pkgsite/internal/testing/sample"
-	"golang.org/x/pkgsite/internal/version"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/internal/testing/sample"
+	"github.com/yusing/pkgsite/internal/version"
 )
 
 func TestExtractURLPathInfo(t *testing.T) {

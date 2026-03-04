@@ -18,13 +18,13 @@ import (
 	"strings"
 
 	_ "github.com/jackc/pgx/v4/stdlib" // for pgx driver
-	"golang.org/x/pkgsite/internal/config/serverconfig"
-	"golang.org/x/pkgsite/internal/database"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/frontend"
-	"golang.org/x/pkgsite/internal/frontend/client"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/postgres"
+	"github.com/yusing/pkgsite/internal/config/serverconfig"
+	"github.com/yusing/pkgsite/internal/database"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/frontend"
+	"github.com/yusing/pkgsite/internal/frontend/client"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/postgres"
 )
 
 var frontendHost = flag.String("frontend", "http://localhost:8080",

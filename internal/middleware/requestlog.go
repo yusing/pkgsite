@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"cloud.google.com/go/logging"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/log"
 )
 
 // Logger is the interface used to write request logs to GCP.

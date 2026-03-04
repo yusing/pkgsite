@@ -12,7 +12,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"golang.org/x/pkgsite/internal/godoc/importer"
+	"github.com/yusing/pkgsite/internal/godoc/importer"
 )
 
 //lint:file-ignore SA1019 We only need the syntax tree.

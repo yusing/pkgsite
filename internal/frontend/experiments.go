@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"strings"
 
-	"golang.org/x/pkgsite/internal/experiment"
-	"golang.org/x/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/experiment"
+	"github.com/yusing/pkgsite/internal/log"
 )
 
 func setExperimentsFromQueryParam(ctx context.Context, r *http.Request) context.Context {

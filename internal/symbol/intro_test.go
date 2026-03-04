@@ -9,7 +9,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"golang.org/x/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal"
 )
 
 func TestIntroducedHistory_OneBuildContext(t *testing.T) {

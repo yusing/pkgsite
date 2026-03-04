@@ -7,10 +7,10 @@ package frontend
 import (
 	"context"
 
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/frontend/versions"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/middleware/stats"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/frontend/versions"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/middleware/stats"
 )
 
 // GetLatestInfo returns various pieces of information about the latest

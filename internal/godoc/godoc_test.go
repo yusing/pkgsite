@@ -13,7 +13,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/pkgsite/internal/godoc/codec"
+	"github.com/yusing/pkgsite/internal/godoc/codec"
 )
 
 func TestRemoveUnusedASTNodes(t *testing.T) {

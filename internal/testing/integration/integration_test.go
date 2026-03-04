@@ -22,13 +22,13 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/safehtml/template"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/godoc/dochtml"
-	"golang.org/x/pkgsite/internal/index"
-	"golang.org/x/pkgsite/internal/middleware"
-	"golang.org/x/pkgsite/internal/postgres"
-	"golang.org/x/pkgsite/internal/proxy"
-	"golang.org/x/pkgsite/internal/proxy/proxytest"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/godoc/dochtml"
+	"github.com/yusing/pkgsite/internal/index"
+	"github.com/yusing/pkgsite/internal/middleware"
+	"github.com/yusing/pkgsite/internal/postgres"
+	"github.com/yusing/pkgsite/internal/proxy"
+	"github.com/yusing/pkgsite/internal/proxy/proxytest"
 )
 
 func TestMain(m *testing.M) {

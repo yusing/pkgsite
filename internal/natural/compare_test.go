@@ -9,7 +9,7 @@ import (
 	"slices"
 	"testing"
 
-	"golang.org/x/pkgsite/internal/natural"
+	"github.com/yusing/pkgsite/internal/natural"
 )
 
 var tests = []struct {

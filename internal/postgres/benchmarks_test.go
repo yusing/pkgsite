@@ -8,8 +8,8 @@ import (
 	"context"
 	"testing"
 
-	"golang.org/x/pkgsite/internal/config/serverconfig"
-	"golang.org/x/pkgsite/internal/database"
+	"github.com/yusing/pkgsite/internal/config/serverconfig"
+	"github.com/yusing/pkgsite/internal/database"
 )
 
 var testQueries = []string{

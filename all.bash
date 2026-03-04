@@ -12,7 +12,7 @@ shopt -s globstar
 
 warnout() {
   while read line; do
-    warn "$line"
+    warn "${line}"
   done
 }
 
@@ -24,14 +24,14 @@ filter() {
   local patterns=$*
   local outfiles=
 
-  for pat in $patterns; do
-    for f in $infiles; do
-      if [[ $f == $pat ]]; then
-        outfiles="$outfiles $f"
+  for pat in ${patterns}; do
+    for f in ${infiles}; do
+      if [[ ${f} == ${pat} ]]; then
+        outfiles="${outfiles} ${f}"
       fi
     done
   done
-  echo $outfiles
+  echo "${outfiles"}
 }
 
 # Return the files that are modified or added.
@@ -40,8 +40,8 @@ filter() {
 # Otherwise, use the files changed since the previous commit.
 modified_files() {
   local working=$(working_files)
-  if [[ $working != ' ' ]]; then
-    echo $working
+  if [[ ${working} != ' ' ]]; then
+    echo "${working}"
   elif [[ $(git rev-parse HEAD) = $(git rev-parse master) ]]; then
     echo ""
   else
@@ -58,7 +58,7 @@ working_files() {
 # Helper for modified_files. It asks git for all modified, added or deleted
 # files, and keeps only the latter two.
 diff_files() {
-  git diff --name-status $* | awk '$1 ~ /^R/ { print $3; next } $1 != "D" { print $2 }'
+  git diff --name-status "$*" | awk '$1 ~ /^R/ { print $3; next } $1 != "D" { print $2 }'
 }
 
 # codedirs lists directories that contain discovery code. If they include
@@ -79,10 +79,10 @@ verify_header() {
     do
         # Allow for the copyright header to start on either of the first three
         # lines, to accommodate conventions for CSS and HTML.
-        line="$(head -4 $FILE)"
-        if [[ ! $line == *"The Go Authors. All rights reserved."* ]] &&
-         [[ ! $line == "// DO NOT EDIT. This file was copied from" ]]; then
-              err "missing license header: $FILE"
+        line="$(head -4 "${FILE"})"
+        if [[ ! ${line} == *"The Go Authors. All rights reserved."* ]] &&
+         [[ ! ${line} == "// DO NOT EDIT. This file was copied from" ]]; then
+              err "missing license header: ${FILE}"
         fi
     done
   fi
@@ -98,12 +98,12 @@ findcode() {
 # ensure_go_binary verifies that a binary exists in $PATH corresponding to the
 # given go-gettable URI. If no such binary exists, it is fetched via `go install`.
 ensure_go_binary() {
-  local binary=$(basename $1)
-  if ! [ -x "$(command -v $binary)" ]; then
+  local binary=$(basename "$1")
+  if ! [[ -x "$(command -v "${binary"})" ]]; then
     info "Installing: $1"
     # Run in a subshell for convenience, so that we don't have to worry about
     # our PWD.
-    (set -x; cd && $GO install $1@latest)
+    (set -x; cd && ${GO} install "$1"@latest)
   fi
 }
 
@@ -113,7 +113,7 @@ ensure_go_binary() {
 check_headers() {
   if [[ $# -gt 0 ]]; then
     info "Checking listed files for license header"
-    verify_header $*
+    verify_header "$*"
   else
     info "Checking staged files for license header"
     # Check code files that have been modified or added.
@@ -134,7 +134,7 @@ check_bad_migrations() {
   info "Checking for bad migrations"
   bad_migrations | while read line
   do
-    err "unexpected number of migrations: $line"
+    err "unexpected number of migrations: ${line}"
   done
 }
 
@@ -148,7 +148,7 @@ check_unparam() {
 
 # check_vet runs go vet on source files.
 check_vet() {
-  runcmd $GO vet -all ./...
+  runcmd "${GO"} vet -all ./...
 }
 
 # check_staticcheck runs staticcheck on source files.
@@ -180,14 +180,14 @@ script_hash_glob='static/**/*.tmpl'
 # check_script_hashes checks that our CSP hashes match the ones
 # for our HTML scripts.
 check_script_hashes() {
-  runcmd $GO run ./devtools/cmd/csphash $script_hash_glob
+  runcmd "${GO"} run ./devtools/cmd/csphash "${script_hash_glob"}
 }
 
 # run_build_static builds JavaScript output from TypeScript source files.
 run_build_static() {
-  runcmd $GO run ./devtools/cmd/static
+  runcmd "${GO"} run ./devtools/cmd/static
   files=$(working_files)
-  if [[ $(filter "$files" 'static/**/*.min*') != '' ]]; then
+  if [[ $(filter "${files}" 'static/**/*.min*') != '' ]]; then
     err "minimized CSS files are not consistent with unminimized ones; run ./devtools/cmd/static to regenerate them"
   fi
 }
@@ -195,19 +195,19 @@ run_build_static() {
 run_npm() {
   npmcmd=${GO_DISCOVERY_NPM_CMD:-"./devtools/nodejs.sh npm"}
   # Run npm install if node_modules directory does not exist.
-  if [ ! -d "node_modules" ]; then
-    runcmd $npmcmd install --quiet
+  if [[ ! -d "node_modules" ]]; then
+    runcmd "${npmcmd"} install --quiet
   fi
-  runcmd $npmcmd $@
+  runcmd "${npmcmd}" $@
 }
 
 run_npx() {
   npxcmd=${GO_DISCOVERY_NPX_CMD:-"./devtools/nodejs.sh npx"}
   # Run npm install if node_modules directory does not exist.
-  if [ ! -d "node_modules" ]; then
+  if [[ ! -d "node_modules" ]]; then
     run_npm install --quiet
   fi
-  runcmd $npxcmd $@
+  runcmd "${npxcmd}" $@
 }
 
 prettier_file_globs='**/*.md'
@@ -217,10 +217,10 @@ prettier_file_globs='**/*.md'
 # fallback.
 run_prettier() {
   local files=$*
-  if [[ $files = '' ]]; then
-    files=$prettier_file_globs
+  if [[ ${files} = '' ]]; then
+    files=${prettier_file_globs}
   fi
-  run_npx prettier --write $files
+  run_npx prettier --write "${files}"
 }
 
 go_linters() {
@@ -266,9 +266,9 @@ EOUSAGE
 # (They time out with -race.)
 declare -A no_race
 no_race=(
-  [golang.org/x/pkgsite/internal/frontend]=1
-  [golang.org/x/pkgsite/internal/worker]=1
-  [golang.org/x/pkgsite/internal/testing/integration]=1
+  [github.com/yusing/pkgsite/internal/frontend]=1
+  [github.com/yusing/pkgsite/internal/worker]=1
+  [github.com/yusing/pkgsite/internal/testing/integration]=1
 )
 
 main() {
@@ -282,72 +282,72 @@ main() {
       run_prettier
       run_npm run lint -- --fix
       run_npm run test
-      runcmd $GO mod tidy
+      runcmd "${GO}" mod tidy
       runcmd env GO_DISCOVERY_TESTDB=true go test ./...
-      runcmd $GO test ./internal/secrets
+      runcmd "${GO}" test ./internal/secrets
       run_npm audit
       ;;
     cl)
       # Similar to the above, but only run checks that apply to files in this commit.
       files=$(modified_files)
-      if [[ $files = '' ]]; then
+      if [[ ${files} = '' ]]; then
         info "No modified files; nothing to do."
         exit 0
       fi
       info "Running checks on:"
-      info "    " $files
+      info "    " "${files"}
 
-      if [[ $(filter "$files" $script_hash_glob) != '' ]]; then
+      if [[ $(filter "${files}" "${script_hash_glob"}) != '' ]]; then
         check_script_hashes
         run_build_static
       fi
-      check_headers $(filter "$files" '*.go' '*.sql' '*.sh')
-      if [[ $(filter "$files" 'migrations/*') != '' ]]; then
+      check_headers $(filter "${files}" '*.go' '*.sql' '*.sh')
+      if [[ $(filter "${files}" 'migrations/*') != '' ]]; then
         check_bad_migrations
       fi
-      if [[ $(filter "$files" '*.go') != '' ]]; then
+      if [[ $(filter "${files}" '*.go') != '' ]]; then
         go_linters
       fi
-      pfiles=$(filter "$files" $prettier_file_globs)
-      if [[ $pfiles != '' ]]; then
-        run_prettier $pfiles
+      pfiles=$(filter "${files}" "${prettier_file_globs}")
+      if [[ ${pfiles} != '' ]]; then
+        run_prettier "${pfiles"}
       fi
-      if [[ $(filter "$files" 'static/**') != '' ]]; then
+      if [[ $(filter "${files}" 'static/**') != '' ]]; then
         run_npm run lint -- --fix
         run_npm run test
       fi
-      runcmd $GO mod tidy
+      runcmd "${GO}" mod tidy
       runcmd env GO_DISCOVERY_TESTDB=true go test ./...
-      runcmd $GO test ./internal/secrets
+      runcmd "${GO}" test ./internal/secrets
       ;;
 
     ci)
       # Similar to the no-arg mode, but omit actions that require GCP
       # permissions or that don't test the code.
       # Also, run the race detector on most tests.
-      local start=`date +%s`
+      local start=$(date +%s)
 
       # Explicitly mark the working directory as safe in CI.
       # https://github.com/docker-library/golang/issues/452
       local wd=$(pwd)
-      runcmd git config --system --add safe.directory ${wd}
+      runcmd git config --system --add safe.directory "${wd}"
 
       standard_linters
       # Print how long it takes to download dependencies and run the standard
       # linters in CI.
-      local end=`date +%s`
+      local end=$(date +%s)
       echo
       echo "--------------------"
       echo "DONE: $((end-start)) seconds"
       echo "--------------------"
 
-      for pkg in $($GO list ./...); do
-        if [[ ${no_race[$pkg]} = '' ]]; then
-          race="$race $pkg"
+      for pkg in $(${GO} list ./...); do
+        if [[ ${no_race[${pkg}]} = '' ]]; then
+          race="${race} ${pkg}"
         fi
       done
-      runcmd env GO_DISCOVERY_TESTDB=true $GO test -race -count=1 $race
-      runcmd env GO_DISCOVERY_TESTDB=true $GO test -count=1 ${!no_race[*]}
+      runcmd env GO_DISCOVERY_TESTDB=true "${GO}" test -race -count=1 "${race}"
+      runcmd env GO_DISCOVERY_TESTDB=true "${GO"} test -count=1 "${!no_race[*]}"
       ;;
     lint) standard_linters ;;
     headers) check_headers ;;
@@ -356,7 +356,7 @@ main() {
     staticcheck) check_staticcheck ;;
     prettier)
       shift
-      run_prettier $*
+      run_prettier "$*"
       ;;
     templates) check_templates ;;
     unparam) check_unparam ;;
@@ -369,10 +369,10 @@ main() {
       usage
       exit 1
   esac
-  if [[ $EXIT_CODE != 0 ]]; then
+  if [[ ${EXIT_CODE} != 0 ]]; then
     err "FAILED; see errors above"
   fi
-  exit $EXIT_CODE
+  exit "${EXIT_CODE}"
 }
 
 main $@

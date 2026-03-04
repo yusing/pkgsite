@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/pkgsite/internal/config"
+	"github.com/yusing/pkgsite/internal/config"
 )
 
 func TestValidateAppVersion(t *testing.T) {

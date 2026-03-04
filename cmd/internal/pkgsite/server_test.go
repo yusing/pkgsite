@@ -14,11 +14,11 @@ import (
 	"regexp"
 	"testing"
 
+	"github.com/yusing/pkgsite/internal/proxy/proxytest"
+	"github.com/yusing/pkgsite/internal/testenv"
+	"github.com/yusing/pkgsite/internal/testing/htmlcheck"
+	"github.com/yusing/pkgsite/internal/testing/testhelper"
 	"golang.org/x/net/html"
-	"golang.org/x/pkgsite/internal/proxy/proxytest"
-	"golang.org/x/pkgsite/internal/testenv"
-	"golang.org/x/pkgsite/internal/testing/htmlcheck"
-	"golang.org/x/pkgsite/internal/testing/testhelper"
 )
 
 var (

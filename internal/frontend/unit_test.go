@@ -7,9 +7,9 @@ package frontend
 import (
 	"testing"
 
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/frontend/versions"
-	"golang.org/x/pkgsite/internal/testing/sample"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/frontend/versions"
+	"github.com/yusing/pkgsite/internal/testing/sample"
 )
 
 func TestUnitURLPath(t *testing.T) {

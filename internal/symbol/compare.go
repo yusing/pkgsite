@@ -9,8 +9,8 @@ import (
 	"sort"
 	"strings"
 
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/stdlib"
 )
 
 // CompareAPIVersions returns the differences between apiVersions and

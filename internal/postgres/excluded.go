@@ -8,9 +8,9 @@ import (
 	"context"
 	"strings"
 
-	"golang.org/x/pkgsite/internal/database"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/database"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
 )
 
 // IsExcluded reports whether the path and version matches the excluded list.

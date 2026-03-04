@@ -15,10 +15,10 @@ import (
 	"sync"
 	"time"
 
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/osv"
-	"golang.org/x/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/osv"
+	"github.com/yusing/pkgsite/internal/stdlib"
 	"golang.org/x/sync/errgroup"
 )
 

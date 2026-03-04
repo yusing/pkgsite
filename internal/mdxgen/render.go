@@ -10,7 +10,7 @@ import (
 	"go/token"
 	"strings"
 
-	"golang.org/x/pkgsite/internal/godoc"
+	"github.com/yusing/pkgsite/internal/godoc"
 )
 
 // RenderIndexMDX renders a single package page.

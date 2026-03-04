@@ -13,12 +13,12 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/proxy"
-	"golang.org/x/pkgsite/internal/proxy/proxytest"
-	"golang.org/x/pkgsite/internal/testing/sample"
-	"golang.org/x/pkgsite/internal/testing/testhelper"
-	"golang.org/x/pkgsite/internal/version"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/proxy"
+	"github.com/yusing/pkgsite/internal/proxy/proxytest"
+	"github.com/yusing/pkgsite/internal/testing/sample"
+	"github.com/yusing/pkgsite/internal/testing/testhelper"
+	"github.com/yusing/pkgsite/internal/version"
 )
 
 var testModule = &proxytest.Module{

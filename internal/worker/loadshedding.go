@@ -7,7 +7,7 @@ package worker
 import (
 	"sync"
 
-	"golang.org/x/pkgsite/internal/postgres"
+	"github.com/yusing/pkgsite/internal/postgres"
 )
 
 type loadShedder struct {

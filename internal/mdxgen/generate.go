@@ -9,9 +9,9 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/yusing/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal/fetch"
 	"golang.org/x/mod/modfile"
-	"golang.org/x/pkgsite/internal"
-	"golang.org/x/pkgsite/internal/fetch"
 )
 
 // Generate creates MDX content for local packages under srcDir into outDir.

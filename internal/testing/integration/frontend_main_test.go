@@ -11,9 +11,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/yusing/pkgsite/internal/postgres"
+	"github.com/yusing/pkgsite/internal/testing/htmlcheck"
 	"golang.org/x/net/html"
-	"golang.org/x/pkgsite/internal/postgres"
-	"golang.org/x/pkgsite/internal/testing/htmlcheck"
 )
 
 var (

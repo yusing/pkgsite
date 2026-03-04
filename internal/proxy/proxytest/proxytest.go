@@ -10,9 +10,9 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/yusing/pkgsite/internal/proxy"
+	"github.com/yusing/pkgsite/internal/testing/testhelper"
 	"golang.org/x/mod/modfile"
-	"golang.org/x/pkgsite/internal/proxy"
-	"golang.org/x/pkgsite/internal/testing/testhelper"
 	"golang.org/x/tools/txtar"
 )
 

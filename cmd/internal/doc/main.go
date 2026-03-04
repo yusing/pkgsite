@@ -15,11 +15,11 @@ import (
 	"net/http"
 	"time"
 
-	"golang.org/x/pkgsite/cmd/internal/pkgsite"
-	"golang.org/x/pkgsite/internal/browser"
-	ilog "golang.org/x/pkgsite/internal/log"
-	"golang.org/x/pkgsite/internal/middleware/timeout"
-	"golang.org/x/pkgsite/internal/stdlib"
+	"github.com/yusing/pkgsite/cmd/internal/pkgsite"
+	"github.com/yusing/pkgsite/internal/browser"
+	ilog "github.com/yusing/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/middleware/timeout"
+	"github.com/yusing/pkgsite/internal/stdlib"
 )
 
 var (

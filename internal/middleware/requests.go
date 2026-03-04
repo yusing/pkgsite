@@ -10,7 +10,7 @@ import (
 	"sort"
 	"sync"
 
-	"golang.org/x/pkgsite/internal"
+	"github.com/yusing/pkgsite/internal"
 )
 
 var (

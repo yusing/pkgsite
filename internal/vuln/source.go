@@ -16,8 +16,8 @@ import (
 	"path/filepath"
 	"sort"
 
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/osv"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/osv"
 )
 
 type source interface {

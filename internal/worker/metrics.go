@@ -9,10 +9,10 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/yusing/pkgsite/internal/postgres"
 	"go.opencensus.io/stats"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/tag"
-	"golang.org/x/pkgsite/internal/postgres"
 )
 
 var (

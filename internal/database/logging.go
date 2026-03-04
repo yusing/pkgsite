@@ -13,8 +13,8 @@ import (
 	"time"
 	"unicode"
 
-	"golang.org/x/pkgsite/internal/derrors"
-	"golang.org/x/pkgsite/internal/log"
+	"github.com/yusing/pkgsite/internal/derrors"
+	"github.com/yusing/pkgsite/internal/log"
 )
 
 // QueryLoggingDisabled stops logging of queries when true.

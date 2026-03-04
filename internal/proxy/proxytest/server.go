@@ -13,10 +13,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/yusing/pkgsite/internal/proxy"
+	"github.com/yusing/pkgsite/internal/testing/testhelper"
+	"github.com/yusing/pkgsite/internal/version"
 	"golang.org/x/mod/semver"
-	"golang.org/x/pkgsite/internal/proxy"
-	"golang.org/x/pkgsite/internal/testing/testhelper"
-	"golang.org/x/pkgsite/internal/version"
 )
 
 // Server represents a proxy server containing the specified modules.
