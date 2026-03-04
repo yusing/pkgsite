@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/yusing/pkgsite/internal/godoc"
+	"gopkg.in/yaml.v3"
 )
 
 // RenderIndexMDX renders a single package page.
@@ -55,15 +56,30 @@ func RenderIndexMDX(ctx context.Context, pd PackageData) (string, error) {
 func writeFrontmatter(b *strings.Builder, title, desc string) {
 	title = cleanFrontmatterText(title)
 	desc = cleanFrontmatterText(desc)
-	b.WriteString("---\n")
-	b.WriteString("title: ")
-	b.WriteString(title)
-	b.WriteString("\n")
-	if desc != "" {
-		b.WriteString("description: ")
-		b.WriteString(desc)
-		b.WriteString("\n")
+	type frontmatter struct {
+		Title       string `yaml:"title"`
+		Description string `yaml:"description,omitempty"`
 	}
+	out, err := yaml.Marshal(frontmatter{
+		Title:       title,
+		Description: desc,
+	})
+	if err != nil {
+		// Fallback to keep output generation resilient even if YAML marshaling fails.
+		b.WriteString("---\n")
+		b.WriteString("title: ")
+		b.WriteString(title)
+		b.WriteString("\n")
+		if desc != "" {
+			b.WriteString("description: ")
+			b.WriteString(desc)
+			b.WriteString("\n")
+		}
+		b.WriteString("---\n\n")
+		return
+	}
+	b.WriteString("---\n")
+	b.Write(out)
 	b.WriteString("---\n\n")
 }
 

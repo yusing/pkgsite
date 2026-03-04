@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/yusing/pkgsite/internal/godoc"
+	"gopkg.in/yaml.v3"
 )
 
 func TestRenderIndexMDX_ReadmeBeforeAPI(t *testing.T) {
@@ -34,6 +35,40 @@ func TestRenderIndexMDX_ReadmeBeforeAPI(t *testing.T) {
 	if readmePos < 0 || apiPos < 0 || apiPos <= readmePos {
 		t.Fatalf("README/API order is incorrect:\n%s", mdx)
 	}
+}
+
+func TestRenderIndexMDX_FrontmatterYAMLStrings(t *testing.T) {
+	pd := PackageData{
+		Path:        "example.com/m/foo",
+		Name:        "null",
+		ModulePath:  "example.com/m",
+		Version:     "v0.0.0",
+		Description: `{"type":"error","name":"YAMLException","message":"bad indentation: null"}`,
+	}
+	mdx, err := RenderIndexMDX(context.Background(), pd)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fm := extractFrontmatter(t, mdx)
+	var got map[string]string
+	if err := yaml.Unmarshal([]byte(fm), &got); err != nil {
+		t.Fatalf("frontmatter should parse as YAML string map: %v\nfrontmatter:\n%s", err, fm)
+	}
+	if got["title"] != "null" {
+		t.Fatalf("title = %q, want %q", got["title"], "null")
+	}
+	if got["description"] != pd.Description {
+		t.Fatalf("description = %q, want %q", got["description"], pd.Description)
+	}
+}
+
+func extractFrontmatter(t *testing.T, mdx string) string {
+	t.Helper()
+	parts := strings.SplitN(mdx, "---\n", 3)
+	if len(parts) < 3 {
+		t.Fatalf("missing frontmatter delimiters:\n%s", mdx)
+	}
+	return strings.TrimSuffix(parts[1], "\n")
 }
 
 func encodedDocSource(t *testing.T) ([]byte, error) {
