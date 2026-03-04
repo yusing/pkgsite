@@ -20,6 +20,7 @@ type ignoreRule struct {
 func newIgnoreMatcher(srcDir, extraIgnoreFile string) (*ignoreMatcher, error) {
 	var files []string
 	files = append(files, filepath.Join(srcDir, ".gitignore"))
+	files = append(files, filepath.Join(srcDir, ".mdxignore"))
 	if extraIgnoreFile != "" {
 		p := extraIgnoreFile
 		if !filepath.IsAbs(p) {
@@ -128,4 +129,3 @@ func matchParts(pattern, value []string) bool {
 	}
 	return matchParts(pattern[1:], value[1:])
 }
-

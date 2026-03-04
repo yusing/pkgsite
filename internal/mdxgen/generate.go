@@ -17,7 +17,8 @@ import (
 // Options controls generation behavior.
 type Options struct {
 	// IgnoreFile is an optional path to an extra ignore file, relative to srcDir
-	// unless absolute. Missing files are ignored silently.
+	// unless absolute. It is applied after .gitignore/.mdxignore.
+	// Missing files are ignored silently.
 	IgnoreFile string
 }
 

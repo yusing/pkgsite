@@ -13,7 +13,7 @@ import (
 func main() {
 	src := flag.String("src", ".", "source module directory")
 	out := flag.String("out", "output", "output directory for generated docs")
-	ignoreFile := flag.String("ignoreFile", "", "optional extra ignore file (in gitignore syntax)")
+	ignoreFile := flag.String("ignoreFile", "", "optional extra ignore file (in gitignore syntax), applied after .gitignore/.mdxignore")
 	flag.Parse()
 
 	if err := run(context.Background(), *src, *out, *ignoreFile); err != nil {

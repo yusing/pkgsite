@@ -95,6 +95,45 @@ func TestGenerate_MissingIgnoreFilesAreSilent(t *testing.T) {
 	}
 }
 
+func TestGenerate_RespectsDefaultMdxIgnore(t *testing.T) {
+	src := t.TempDir()
+	writeFile(t, filepath.Join(src, "go.mod"), "module example.com/m\n\ngo 1.26.0\n")
+	writeFile(t, filepath.Join(src, ".mdxignore"), strings.Join([]string{
+		"web/config/**",
+		"web/uc/types/**",
+		"**/node_modules/**",
+		"**/bin/**",
+		"**/wailsjs/**",
+	}, "\n")+"\n")
+
+	writeFile(t, filepath.Join(src, "web", "config", "pkg.go"), "package config\n\nfunc F() {}\n")
+	writeFile(t, filepath.Join(src, "web", "uc", "types", "pkg.go"), "package types\n\nfunc F() {}\n")
+	writeFile(t, filepath.Join(src, "client", "node_modules", "dep", "pkg.go"), "package dep\n\nfunc F() {}\n")
+	writeFile(t, filepath.Join(src, "tooling", "bin", "runner", "pkg.go"), "package runner\n\nfunc F() {}\n")
+	writeFile(t, filepath.Join(src, "frontend", "wailsjs", "bridge", "pkg.go"), "package bridge\n\nfunc F() {}\n")
+	writeFile(t, filepath.Join(src, "keep", "pkg.go"), "package keep\n\nfunc F() {}\n")
+
+	out := filepath.Join(t.TempDir(), "output")
+	_, err := Generate(context.Background(), src, out)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, p := range []string{
+		filepath.Join("web", "config", "index.mdx"),
+		filepath.Join("web", "uc", "types", "index.mdx"),
+		filepath.Join("client", "node_modules", "dep", "index.mdx"),
+		filepath.Join("tooling", "bin", "runner", "index.mdx"),
+		filepath.Join("frontend", "wailsjs", "bridge", "index.mdx"),
+	} {
+		if _, err := os.Stat(filepath.Join(out, p)); !os.IsNotExist(err) {
+			t.Fatalf("%s should not exist, err=%v", p, err)
+		}
+	}
+	if _, err := os.Stat(filepath.Join(out, "keep", "index.mdx")); err != nil {
+		t.Fatalf("keep/index.mdx should exist: %v", err)
+	}
+}
+
 func writeFile(t *testing.T, filename, content string) {
 	t.Helper()
 	if err := os.MkdirAll(filepath.Dir(filename), 0o755); err != nil {

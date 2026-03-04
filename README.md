@@ -38,7 +38,8 @@ $ cd myproject
 $ mdxgen -src . -out docs
 ```
 
-Use `-ignoreFile` to apply extra ignore rules on top of `.gitignore`:
+`mdxgen` reads ignore rules from `.gitignore` and `.mdxignore` automatically.
+Use `-ignoreFile` to apply extra ignore rules on top:
 
 ```
 $ mdxgen -src . -out docs -ignoreFile .mdxgenignore
