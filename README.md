@@ -1,10 +1,10 @@
-# golang.org/x/pkgsite
+# github.com/yusing/pkgsite
 
 This repository hosts the source code of the [pkg.go.dev](https://pkg.go.dev) website,
-and [`pkgsite`](https://pkg.go.dev/golang.org/x/pkgsite/cmd/pkgsite), a documentation
+and [`pkgsite`](https://pkg.go.dev/github.com/yusing/pkgsite/cmd/pkgsite), a documentation
 server program.
 
-[![Go Reference](https://pkg.go.dev/badge/golang.org/x/pkgsite.svg)](https://pkg.go.dev/golang.org/x/pkgsite)
+[![Go Reference](https://pkg.go.dev/badge/github.com/yusing/pkgsite.svg)](https://pkg.go.dev/github.com/yusing/pkgsite)
 
 ## pkg.go.dev: a site for discovering Go packages
 
@@ -19,12 +19,30 @@ You can check it out at [https://pkg.go.dev](https://pkg.go.dev).
 Example usage:
 
 ```
-$ go install golang.org/x/pkgsite/cmd/pkgsite@latest
+$ go install github.com/yusing/pkgsite/cmd/pkgsite@latest
 $ cd myproject
 $ pkgsite -open .
 ```
 
-For more information, see the [pkgsite documentation](https://pkg.go.dev/golang.org/x/pkgsite/cmd/pkgsite).
+For more information, see the [pkgsite documentation](https://pkg.go.dev/github.com/yusing/pkgsite/cmd/pkgsite).
+
+## mdxgen: local MDX generator
+
+`mdxgen` generates Fumadocs-friendly MDX files from the local module only.
+
+Example usage:
+
+```
+$ go install github.com/yusing/pkgsite/cmd/mdxgen@latest
+$ cd myproject
+$ mdxgen -src . -out docs
+```
+
+Use `-ignoreFile` to apply extra ignore rules on top of `.gitignore`:
+
+```
+$ mdxgen -src . -out docs -ignoreFile .mdxgenignore
+```
 
 ## Issues
 

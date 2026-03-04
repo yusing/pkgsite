@@ -14,9 +14,25 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
+// Options controls generation behavior.
+type Options struct {
+	// IgnoreFile is an optional path to an extra ignore file, relative to srcDir
+	// unless absolute. Missing files are ignored silently.
+	IgnoreFile string
+}
+
 // Generate creates MDX content for local packages under srcDir into outDir.
 func Generate(ctx context.Context, srcDir, outDir string) (Summary, error) {
+	return GenerateWithOptions(ctx, srcDir, outDir, Options{})
+}
+
+// GenerateWithOptions creates MDX content with custom options.
+func GenerateWithOptions(ctx context.Context, srcDir, outDir string, opts Options) (Summary, error) {
 	modulePath, err := modulePathFromGoMod(filepath.Join(srcDir, "go.mod"))
+	if err != nil {
+		return Summary{}, err
+	}
+	ign, err := newIgnoreMatcher(srcDir, opts.IgnoreFile)
 	if err != nil {
 		return Summary{}, err
 	}
@@ -71,6 +87,10 @@ func Generate(ctx context.Context, srcDir, outDir string) (Summary, error) {
 		if u.Path == modulePath {
 			relPath = "."
 		}
+		if ign != nil && relPath != "." && ign.Ignore(relPath) {
+			s.Skipped++
+			continue
+		}
 		if err := writeMDXFile(outDir, relPath, mdx); err != nil {
 			return s, err
 		}
@@ -123,6 +143,9 @@ func writeMDXFile(outDir, pkgPath, content string) error {
 }
 
 func writeAllMetaFiles(outDir string, packagePaths []string) error {
+	if err := os.MkdirAll(outDir, 0o755); err != nil {
+		return err
+	}
 	dirChildren := map[string][]string{}
 	for _, pkg := range packagePaths {
 		parts := strings.Split(strings.Trim(pkg, "/"), "/")
