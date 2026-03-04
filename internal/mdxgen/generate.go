@@ -126,7 +126,7 @@ func writeAllMetaFiles(outDir string, packagePaths []string) error {
 	dirChildren := map[string][]string{}
 	for _, pkg := range packagePaths {
 		parts := strings.Split(strings.Trim(pkg, "/"), "/")
-		for i := 0; i < len(parts); i++ {
+		for i := range parts {
 			parent := strings.Join(parts[:i], "/")
 			child := parts[i]
 			dirChildren[parent] = append(dirChildren[parent], child)
@@ -150,4 +150,3 @@ func writeAllMetaFiles(outDir string, packagePaths []string) error {
 	}
 	return nil
 }
-

@@ -101,7 +101,7 @@ func generate(w io.Writer, packageName string, fieldNames map[string][]string, v
 	// Mark the built-in types as done.
 	for _, t := range builtinTypes {
 		g.done[t] = true
-		if t.Kind() == reflect.Ptr && t.Elem().Kind() == reflect.Struct {
+		if t.Kind() == reflect.Pointer && t.Elem().Kind() == reflect.Struct {
 			g.done[t.Elem()] = true
 		}
 	}
@@ -183,7 +183,7 @@ func (g *generator) gen(t reflect.Type) ([]byte, error) {
 		return g.genMap(t)
 	case reflect.Struct:
 		return g.genStruct(t)
-	case reflect.Ptr:
+	case reflect.Pointer:
 		return g.gen(t.Elem())
 	}
 	return nil, nil
@@ -224,7 +224,7 @@ func (g *generator) genStruct(t reflect.Type) ([]byte, error) {
 		if ft == nil {
 			continue
 		}
-		if ft.Kind() == reflect.Ptr {
+		if ft.Kind() == reflect.Pointer {
 			ft = ft.Elem()
 		}
 		g.todo = append(g.todo, ft)
@@ -268,8 +268,8 @@ func exportedFields(t reflect.Type, oldNames []string) []field {
 
 	// If there are any new exported fields, assign them positions after the
 	// existing ones.
-	for i := 0; i < t.NumField(); i++ {
-		f := t.Field(i)
+	for f := range t.Fields() {
+		f := f
 		if f.PkgPath != "" { // Ignore unexported fields. A field is exported if its PkgPath is empty.
 			continue
 		}
@@ -288,8 +288,8 @@ func exportedFields(t reflect.Type, oldNames []string) []field {
 
 	// Populate the field structs, in the right order.
 	fields := make([]field, len(fieldPos))
-	for i := 0; i < t.NumField(); i++ {
-		f := t.Field(i)
+	for f := range t.Fields() {
+		f := f
 		if pos, ok := fieldPos[f.Name]; ok {
 			fields[pos] = field{
 				Name: f.Name,
@@ -322,7 +322,7 @@ func zeroValue(t reflect.Type) string {
 		return "0"
 	case reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
 		return "0"
-	case reflect.Ptr, reflect.Slice, reflect.Map, reflect.Interface:
+	case reflect.Pointer, reflect.Slice, reflect.Map, reflect.Interface:
 		return "nil"
 	default:
 		return ""
@@ -409,7 +409,7 @@ func (g *generator) goName(t reflect.Type) string {
 		return fmt.Sprintf("[]%s", g.goName(t.Elem()))
 	case reflect.Map:
 		return fmt.Sprintf("map[%s]%s", g.goName(t.Key()), g.goName(t.Elem()))
-	case reflect.Ptr:
+	case reflect.Pointer:
 		return fmt.Sprintf("*%s", g.goName(t.Elem()))
 	default:
 		s := t.String()

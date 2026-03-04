@@ -119,6 +119,7 @@ func TestCollectStructs(t *testing.T) {
 	}
 }
 
+//go:fix inline
 func intptr(i int64) *int64 {
-	return &i
+	return new(i)
 }

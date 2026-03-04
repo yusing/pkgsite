@@ -175,10 +175,8 @@ func (c *Client) ByAlias(ctx context.Context, alias string) (_ string, err error
 		return "", err
 	}
 	for _, v := range vs {
-		for _, vAlias := range v.Aliases {
-			if alias == vAlias {
-				return v.ID, nil
-			}
+		if slices.Contains(v.Aliases, alias) {
+			return v.ID, nil
 		}
 	}
 	return "", derrors.NotFound
@@ -314,7 +312,6 @@ func (c *Client) byIDs(ctx context.Context, ids []string) (_ []*osv.Entry, err e
 	g, gctx := errgroup.WithContext(ctx)
 	g.SetLimit(10)
 	for i, id := range ids {
-		i, id := i, id
 		g.Go(func() error {
 			e, err := c.ByID(gctx, id)
 			if err != nil {

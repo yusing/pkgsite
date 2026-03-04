@@ -404,8 +404,8 @@ func (s *Server) reportError(ctx context.Context, err error, w http.ResponseWrit
 // (this is symmetric with the proxy url scheme)
 func parseModulePathAndVersion(requestPath string) (string, string, error) {
 	p := strings.TrimPrefix(requestPath, "/")
-	if strings.HasSuffix(p, "/@latest") {
-		modulePath := strings.TrimSuffix(p, "/@latest")
+	if before, ok := strings.CutSuffix(p, "/@latest"); ok {
+		modulePath := before
 		if modulePath == "" {
 			return "", "", fmt.Errorf("invalid module path: %q", modulePath)
 		}
@@ -522,7 +522,6 @@ func (s *Server) Enqueue(ctx context.Context, w http.ResponseWriter, limit int, 
 	)
 	sem := make(chan struct{}, concurrentEnqueues)
 	for _, m := range modules {
-		m := m
 		opts := queue.Options{
 			Suffix:            suffix,
 			DisableProxyFetch: shouldDisableProxyFetch(m),
@@ -544,7 +543,7 @@ func (s *Server) Enqueue(ctx context.Context, w http.ResponseWriter, limit int, 
 		}()
 	}
 	// Wait for goroutines to finish.
-	for i := 0; i < concurrentEnqueues; i++ {
+	for range concurrentEnqueues {
 		sem <- struct{}{}
 	}
 	log.Infof(ctx, "Successfully scheduled modules to be fetched: %d modules enqueued, %d errors", nEnqueued, nErrors)

@@ -14,6 +14,7 @@ import (
 	"go/types"
 	"io"
 	"log"
+	"maps"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -41,12 +42,9 @@ func GenerateFeatureContexts(ctx context.Context, pkgPath, pkgDir string) (map[s
 	var wg sync.WaitGroup
 	walkers := make([]*Walker, len(internal.BuildContexts))
 	for i, context := range contexts {
-		i, context := i, context
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
+		wg.Go(func() {
 			walkers[i] = NewWalker(context, pkgPath, pkgDir, filepath.Join(build.Default.GOROOT, "src"))
-		}()
+		})
 	}
 	wg.Wait()
 	var featureCtx = make(map[string]map[string]bool) // feature -> context name -> true
@@ -265,9 +263,7 @@ func (w *Walker) loadImports(pkgPath string) {
 			if len(pkg.ImportMap) > 0 {
 				importMap[pkg.Dir] = make(map[string]string, len(pkg.ImportMap))
 			}
-			for k, v := range pkg.ImportMap {
-				importMap[pkg.Dir][k] = v
-			}
+			maps.Copy(importMap[pkg.Dir], pkg.ImportMap)
 		}
 		sort.Strings(packages)
 		imports = listImports{
@@ -290,8 +286,8 @@ func (w *Walker) emitStructType(name string, typ *types.Struct) {
 	typeStruct := fmt.Sprintf("type %s struct", name)
 	w.emitf("%s", typeStruct)
 	defer w.pushScope(typeStruct)()
-	for i := 0; i < typ.NumFields(); i++ {
-		f := typ.Field(i)
+	for f := range typ.Fields() {
+		f := f
 		if f.Embedded() {
 			continue
 		}
@@ -316,8 +312,8 @@ func (w *Walker) emitIfaceType(name string, typ *types.Interface) {
 	pop := w.pushScope(typeInterface)
 
 	var methodNames []string
-	for i := 0; i < typ.NumExplicitMethods(); i++ {
-		m := typ.ExplicitMethod(i)
+	for m := range typ.ExplicitMethods() {
+		m := m
 		if m.Exported() {
 			methodNames = append(methodNames, m.Name())
 			w.emitf("%s%s", m.Name(), w.signatureString(m.Type().(*types.Signature)))
