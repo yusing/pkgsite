@@ -43,7 +43,7 @@ func RenderIndexMDX(ctx context.Context, pd PackageData) (string, error) {
 	}
 	b.WriteString("## API Reference\n\n")
 	if strings.TrimSpace(dpkg.Doc) != "" {
-		b.WriteString(strings.TrimSpace(dpkg.Doc))
+		b.WriteString(escapeMDXProse(strings.TrimSpace(dpkg.Doc)))
 		b.WriteString("\n\n")
 	}
 	renderValues(&b, fset, "Constants", dpkg.Consts)
@@ -121,7 +121,7 @@ func renderValues(b *strings.Builder, fset *token.FileSet, title string, vals []
 		b.WriteString(formatDecl(fset, v.Decl))
 		b.WriteString("\n```\n\n")
 		if strings.TrimSpace(v.Doc) != "" {
-			b.WriteString(strings.TrimSpace(v.Doc))
+			b.WriteString(escapeMDXProse(strings.TrimSpace(v.Doc)))
 			b.WriteString("\n\n")
 		}
 	}
@@ -139,7 +139,7 @@ func renderFuncs(b *strings.Builder, fset *token.FileSet, title string, funcs []
 		b.WriteString(formatDecl(fset, f.Decl))
 		b.WriteString("\n```\n\n")
 		if strings.TrimSpace(f.Doc) != "" {
-			b.WriteString(strings.TrimSpace(f.Doc))
+			b.WriteString(escapeMDXProse(strings.TrimSpace(f.Doc)))
 			b.WriteString("\n\n")
 		}
 	}
@@ -157,7 +157,7 @@ func renderTypes(b *strings.Builder, fset *token.FileSet, types []*doc.Type) {
 		b.WriteString(formatDecl(fset, t.Decl))
 		b.WriteString("\n```\n\n")
 		if strings.TrimSpace(t.Doc) != "" {
-			b.WriteString(strings.TrimSpace(t.Doc))
+			b.WriteString(escapeMDXProse(strings.TrimSpace(t.Doc)))
 			b.WriteString("\n\n")
 		}
 		renderValues(b, fset, "Associated Constants", t.Consts)
@@ -174,4 +174,15 @@ func formatDecl(fset *token.FileSet, decl ast.Decl) string {
 	var out bytes.Buffer
 	_ = printer.Fprint(&out, fset, decl)
 	return out.String()
+}
+
+var mdxEscaper = strings.NewReplacer(
+	"{", "&#123;",
+	"}", "&#125;",
+	"<", "&lt;",
+	">", "&gt;",
+)
+
+func escapeMDXProse(s string) string {
+	return mdxEscaper.Replace(s)
 }

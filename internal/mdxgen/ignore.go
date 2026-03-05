@@ -44,8 +44,7 @@ func newIgnoreMatcher(srcDir, extraIgnoreFile string) (*ignoreMatcher, error) {
 }
 
 func (m *ignoreMatcher) addRules(contents string) {
-	lines := strings.Split(contents, "\n")
-	for _, line := range lines {
+	for line := range strings.SplitSeq(contents, "\n") {
 		line = strings.TrimSpace(line)
 		if line == "" || strings.HasPrefix(line, "#") {
 			continue
@@ -85,12 +84,23 @@ func (m *ignoreMatcher) Ignore(relPath string) bool {
 	return ignored
 }
 
+// ShouldIgnore returns true if the path should be ignored.
+// It returns false for nil matchers and root paths (".").
+func (m *ignoreMatcher) ShouldIgnore(relPath string) bool {
+	if m == nil {
+		return false
+	}
+	if relPath == "." || relPath == "" {
+		return false
+	}
+	return m.Ignore(relPath)
+}
+
 func matchRule(r ignoreRule, p string) bool {
 	if r.hasSlash {
 		return globPathMatch(r.pattern, p)
 	}
-	parts := strings.Split(p, "/")
-	for _, seg := range parts {
+	for seg := range strings.SplitSeq(p, "/") {
 		if ok, _ := path.Match(r.pattern, seg); ok {
 			return true
 		}

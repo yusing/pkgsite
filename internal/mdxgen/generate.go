@@ -14,6 +14,8 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
+const rootPackagePath = "."
+
 // Options controls generation behavior.
 type Options struct {
 	// IgnoreFile is an optional path to an extra ignore file, relative to srcDir
@@ -37,11 +39,26 @@ func GenerateWithOptions(ctx context.Context, srcDir, outDir string, opts Option
 	if err != nil {
 		return Summary{}, err
 	}
-	getter, err := fetch.NewGoPackagesModuleGetter(ctx, srcDir, "./...")
+	loadPatterns, err := collectLoadPatterns(srcDir, ign)
 	if err != nil {
 		return Summary{}, err
 	}
-	lm := fetch.FetchLazyModule(ctx, modulePath, fetch.LocalVersion, getter)
+	if len(loadPatterns) == 0 {
+		s := Summary{Skipped: 1} // No packages found to process
+		if err := writeAllMetaFiles(outDir, nil); err != nil {
+			return s, err
+		}
+		return s, nil
+	}
+	getter, err := fetch.NewGoPackagesModuleGetter(ctx, srcDir, loadPatterns...)
+	if err != nil {
+		return Summary{}, err
+	}
+	mg := fetch.ModuleGetter(getter)
+	if ign != nil {
+		mg = &ignoreContentModuleGetter{base: getter, ign: ign}
+	}
+	lm := fetch.FetchLazyModule(ctx, modulePath, fetch.LocalVersion, mg)
 	if lm.Error != nil {
 		return Summary{}, lm.Error
 	}
@@ -56,6 +73,13 @@ func GenerateWithOptions(ctx context.Context, srcDir, outDir string, opts Option
 
 	for _, um := range lm.UnitMetas {
 		if !um.IsPackage() {
+			continue
+		}
+		relPath := relativePackagePath(um.Path, modulePath)
+		// Final ignore check: packages may pass load-time filtering but still need
+		// runtime verification (e.g., patterns loaded before ignore rules applied)
+		if ign.ShouldIgnore(relPath) {
+			s.Skipped++
 			continue
 		}
 		u, err := lm.Unit(ctx, um.Path)
@@ -84,18 +108,10 @@ func GenerateWithOptions(ctx context.Context, srcDir, outDir string, opts Option
 			s.Failed++
 			continue
 		}
-		relPath := strings.TrimPrefix(u.Path, modulePath+"/")
-		if u.Path == modulePath {
-			relPath = "."
-		}
-		if ign != nil && relPath != "." && ign.Ignore(relPath) {
-			s.Skipped++
-			continue
-		}
 		if err := writeMDXFile(outDir, relPath, mdx); err != nil {
 			return s, err
 		}
-		if relPath != "." {
+		if relPath != rootPackagePath {
 			pkgPaths = append(pkgPaths, relPath)
 		}
 		s.Generated++
@@ -132,9 +148,16 @@ func chooseDocumentation(docs []*internal.Documentation) *internal.Documentation
 	return best
 }
 
+func relativePackagePath(pkgPath, modulePath string) string {
+	if pkgPath == modulePath {
+		return rootPackagePath
+	}
+	return strings.TrimPrefix(pkgPath, modulePath+"/")
+}
+
 func writeMDXFile(outDir, pkgPath, content string) error {
 	targetDir := outDir
-	if pkgPath != "." && pkgPath != "" {
+	if pkgPath != rootPackagePath && pkgPath != "" {
 		targetDir = filepath.Join(outDir, filepath.FromSlash(pkgPath))
 	}
 	if err := os.MkdirAll(targetDir, 0o755); err != nil {

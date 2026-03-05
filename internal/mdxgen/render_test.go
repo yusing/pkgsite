@@ -62,6 +62,36 @@ func TestRenderIndexMDX_FrontmatterYAMLStrings(t *testing.T) {
 	}
 }
 
+func TestRenderIndexMDX_EscapesMDXProse(t *testing.T) {
+	src, err := encodedDocSourceFromCode(t, `package foo
+
+// Package foo supports {"mode":"x"} and <!DOCTYPE x>.
+func F() {}
+`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pd := PackageData{
+		Path:       "example.com/m/foo",
+		Name:       "foo",
+		ModulePath: "example.com/m",
+		Version:    "v0.0.0",
+		DocSource:  src,
+	}
+	mdx, err := RenderIndexMDX(context.Background(), pd)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{
+		"&#123;\"mode\":\"x\"&#125;",
+		"&lt;!DOCTYPE x&gt;",
+	} {
+		if !strings.Contains(mdx, want) {
+			t.Fatalf("rendered mdx should contain %q:\n%s", want, mdx)
+		}
+	}
+}
+
 func extractFrontmatter(t *testing.T, mdx string) string {
 	t.Helper()
 	parts := strings.SplitN(mdx, "---\n", 3)
@@ -73,13 +103,17 @@ func extractFrontmatter(t *testing.T, mdx string) string {
 
 func encodedDocSource(t *testing.T) ([]byte, error) {
 	t.Helper()
-	const code = `package foo
+	return encodedDocSourceFromCode(t, `package foo
 
 // Package foo does foo.
 //
 // It is for tests.
 func F() {}
-`
+`)
+}
+
+func encodedDocSourceFromCode(t *testing.T, code string) ([]byte, error) {
+	t.Helper()
 	fset := token.NewFileSet()
 	f, err := parser.ParseFile(fset, "foo.go", code, parser.ParseComments)
 	if err != nil {
