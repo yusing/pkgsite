@@ -6,11 +6,15 @@ import (
 	"sort"
 )
 
-func writeMetaJSON(dir string, pages []string) error {
+func writeMetaJSON(dir string, pages []string, isRootDir bool) error {
 	pages = dedupeAndSort(pages)
 	b, err := json.MarshalIndent(struct {
 		Pages []string `json:"pages"`
-	}{Pages: pages}, "", "  ")
+		Root  bool     `json:"root,omitempty"`
+	}{
+		Pages: pages,
+		Root:  isRootDir,
+	}, "", "  ")
 	if err != nil {
 		return err
 	}
@@ -33,4 +37,3 @@ func dedupeAndSort(items []string) []string {
 	sort.Strings(out)
 	return out
 }
-

@@ -191,7 +191,8 @@ func writeAllMetaFiles(outDir string, packagePaths []string) error {
 				return err
 			}
 		}
-		if err := writeMetaJSON(targetDir, children); err != nil {
+		isRootDir := dir != "" && !strings.Contains(dir, "/")
+		if err := writeMetaJSON(targetDir, children, isRootDir); err != nil {
 			return err
 		}
 	}
